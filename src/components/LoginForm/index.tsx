@@ -11,6 +11,7 @@ import FormField from "../FormField";
 import { login } from "@/actions/login";
 import {useTransition} from 'react'
 import { useRouter } from "next/navigation";
+import { useFormState, useFormStatus } from 'react-dom';
 
 export const LoginForm = () => {
     const router = useRouter();
@@ -30,9 +31,10 @@ export const LoginForm = () => {
   const onSubmit = async (data: loginProps) => {
     console.log("SUCCESS", data);
     startTransition(()=> {
-        login(data).then((returnData:any)=> {
-            console.log(returnData);
-        })
+        login(data)
+        // .then((returnData:any)=> {
+        //     console.log("returnData",returnData);
+        // })
     })
   };
 
