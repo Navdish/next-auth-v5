@@ -36,3 +36,10 @@ export const login = async(values: z.infer<typeof LoginSchema>) => {
         throw error;
     }
 }
+
+export const loginGithub = async(prop: string) => {
+    console.log("prop", prop)
+    await signIn("github", {
+      callbackUrl: DEFAULT_LOGIN_REDIRECT
+    })
+}

@@ -1,17 +1,18 @@
 "use client";
 import * as z from "zod";
 import { LoginSchema } from "@/schemas";
-import { FcGoogle } from "react-icons/fc";
+// import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
 import { Box, Button, Paper, Stack, Typography } from "@mui/material";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import FormField from "../FormField";
-import { login } from "@/actions/login";
+import { login, loginGithub } from "@/actions/login";
 import {useTransition} from 'react'
 import { useRouter } from "next/navigation";
-import { useFormState, useFormStatus } from 'react-dom';
+import { signIn } from "@/auth";
+import { DEFAULT_LOGIN_REDIRECT } from "@/routes";
 
 export const LoginForm = () => {
     const router = useRouter();
@@ -41,6 +42,14 @@ export const LoginForm = () => {
   const navigator = () => {
     router.push('/auth/register')
   }
+
+  // provider :  "github"
+  const onClick = () => {
+    
+    startTransition(()=> {
+      loginGithub("github")
+  })
+  }
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -58,10 +67,10 @@ export const LoginForm = () => {
               Sign In
             </Typography>
             <Box sx={{ display: "flex" }}>
-              <Button variant="outlined"  size="large" onClick={() => {}}>
+              {/* <Button variant="outlined"  size="large" onClick={() => {onClick("google")}}>
                 <FcGoogle />
-              </Button>
-              <Button variant="outlined" size="large" onClick={() => {}}>
+              </Button> */}
+              <Button variant="outlined" size="large" onClick={() => {onClick()}}>
                 <FaGithub />
               </Button>
             </Box>
